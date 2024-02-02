@@ -1,0 +1,50 @@
+%buttonDefaults {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: 0.4s;
+  cursor: pointer;
+  font-family: var(--font-secondary);
+  font-size: clamp(0.5rem, 4vw, 0.75rem);
+  font-weight: 500;
+}
+
+.btn__black {
+  @extend %buttonDefaults;
+  background-color: var(--black);
+  border: 1px solid var(--black);
+  height: 40px;
+  padding: 0rem 1.4rem;
+  color: rgba(255, 255, 255, 1);
+  border-radius: 4px;
+
+  &:hover {
+    filter: brightness(1.4);
+  }
+
+  &.login {
+    padding: 0 1rem;
+  }
+}
+
+.btn__white {
+  @extend %buttonDefaults;
+  background-color: var(--white);
+  border: 1px solid var(--black);
+  height: 40px;
+  padding: 0 1.4rem;
+  color: var(--black);
+  border-radius: 4px;
+
+  &:hover {
+    filter: brightness(1.4);
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}

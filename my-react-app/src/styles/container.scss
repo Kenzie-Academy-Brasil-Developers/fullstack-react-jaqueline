@@ -1,0 +1,27 @@
+.container {
+  width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 1rem 1.3rem;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.containerLoginRegister {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 700px) {
+  .containerLoginRegister {
+    flex-direction: row;
+    margin-top: 50px;
+
+    img {
+      width: 40%;
+    }
+  }
+}

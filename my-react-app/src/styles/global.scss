@@ -1,0 +1,29 @@
+:root {
+    --font-primary: "Oswald", sans-serif;
+    --font-secondary: "Roboto", sans-serif;
+    --white: #ffff;
+    --black: #4C6FBF;
+    --gray: #eeeeee;
+    --red: red;
+  }
+  
+  body {
+    background-color: var(--white);
+  }
+
+  img{
+    background-size: cover;
+  }
+  
+  .defaultTemplate {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+  }
+  
+  .register-form {
+    width: 100%;
+    max-width: 400px;
+  }
+  

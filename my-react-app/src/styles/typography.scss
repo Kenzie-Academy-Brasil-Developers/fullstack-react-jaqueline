@@ -1,0 +1,64 @@
+.title {
+  font-family: var(--font-primary);
+  font-weight: 500;
+  color: var(--black);
+
+  &.one {
+    font-size: clamp(3.75rem, 4vw, 6.25rem);
+  }
+
+  &.two {
+    font-size: clamp(1.75rem, 4vw, 2.375rem);
+  }
+
+  &.three {
+    font-size: 2rem;
+  }
+
+  &.four {
+    font-family: var(--font-secondary);
+    font-weight: 700;
+    font-size: 1.1875rem;
+  }
+
+  &.five {
+    font-size: clamp(0.625rem, 4vw, 0.9375rem);
+  }
+
+  &.six {
+    font-size: clamp(1.125rem, 4vw, 1.375rem);
+  }
+}
+
+.paragraphs {
+  font-family: var(--font-primary);
+  color: var(--black);
+
+  &.bold {
+    font-weight: 700;
+    font-size: 1.125rem;
+  }
+
+  &.bg-bolder {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  &.menu {
+    font-weight: 500;
+    font-size: 1.25rem;
+  }
+}
+
+.placeholder {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 1.3125rem;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.error {
+  font-size: 0.8125rem;
+  font-family: var(--font-primary);
+  color: #fa5252;
+}

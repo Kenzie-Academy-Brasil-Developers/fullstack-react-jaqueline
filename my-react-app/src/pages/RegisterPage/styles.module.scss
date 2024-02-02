@@ -1,0 +1,9 @@
+.form {
+  margin-top: 125px;
+}
+
+@media (min-width: 700px) {
+  .form {
+    margin-top: 0;
+  }
+}
