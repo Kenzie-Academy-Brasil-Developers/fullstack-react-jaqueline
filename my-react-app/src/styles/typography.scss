@@ -2,6 +2,9 @@
   font-family: var(--font-primary);
   font-weight: 500;
   color: var(--black);
+  display: flex;
+  justify-items: center;
+  align-items: center;
 
   &.one {
     font-size: clamp(3.75rem, 4vw, 6.25rem);
@@ -37,6 +40,7 @@
   &.bold {
     font-weight: 700;
     font-size: 1.125rem;
+    color: white;
   }
 
   &.bg-bolder {

@@ -1,0 +1,31 @@
+.containerAdmin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+
+  
+  @media (min-width: 700px) {
+    .containerAdmin {
+      flex-direction: row;
+    }
+  
+    .size {
+      width: 100px;
+    }
+  
+    .infos {
+      width: 70%;
+    }
+  
+    .create {
+      width: 30%;
+    }
+  
+
+  
+
+  }
+  

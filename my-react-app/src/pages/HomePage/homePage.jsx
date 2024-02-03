@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { LoginContext } from "../../providers/loginContext";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,7 +21,7 @@ export const HomePage = () => {
 
   return (
     <div className="container containerLoginRegister">
-      <img src={login} className={styles.logo} alt="logo login" />
+      <img src={login} className="logo" alt="logo login" />
       <form onSubmit={handleSubmit(submitLogin)} className={styles.form}>
         <div className={styles.login}>
           <div className={styles.form}>

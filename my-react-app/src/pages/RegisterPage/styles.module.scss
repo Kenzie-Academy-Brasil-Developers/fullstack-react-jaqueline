@@ -1,9 +1,10 @@
-.form {
-  margin-top: 125px;
-}
 
 @media (min-width: 700px) {
-  .form {
-    margin-top: 0;
-  }
+    .width {
+        width: 35%;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+      }
+      
 }

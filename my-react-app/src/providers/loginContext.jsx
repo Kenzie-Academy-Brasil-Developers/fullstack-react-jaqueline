@@ -8,15 +8,15 @@ export const LoginContext = createContext({});
 export const LoginContextProvider = ({ children }) => {
   const navigate = useNavigate();
   const [admin, setAdmin] = useState(false);
-  const [name, setName] = useState(false);
-  const [email, setEmail] = useState(false);
-  const [telephone, setTelephone] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [telephone, setTelephone] = useState("");
   const [loading, setLoading] = useState(false);
 
   const submitLogout = () => {
     navigate("/");
     localStorage.removeItem("@token");
-    localStorage.removeItem("@id");
+    localStorage.removeItem("@admin");
   };
 
   const submitLogin = async (formData) => {
@@ -41,6 +41,7 @@ export const LoginContextProvider = ({ children }) => {
       }
     } catch (error) {
       toast.error("Não foi possível realizar o login");
+      console.log(error)
     } finally {
       setLoading(false);
     }
@@ -52,12 +53,15 @@ export const LoginContextProvider = ({ children }) => {
       await api.post("/clients", formData);
       toast.success("Conta criada com sucesso");
       navigate("/");
-    } catch {
+    } catch (error){
       toast.error("Ops! Algo deu errado");
+      console.log(error)
     } finally {
       setLoading(false);
     }
   };
+
+
 
   return (
     <LoginContext.Provider
@@ -70,6 +74,7 @@ export const LoginContextProvider = ({ children }) => {
         email,
         telephone,
         admin,
+        setLoading
       }}
     >
       {children}

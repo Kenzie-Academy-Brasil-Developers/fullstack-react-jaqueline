@@ -16,7 +16,7 @@ export const MainRoutes = () => {
       <Route path="*" element={<ErrorPage />} />
       <Route element={<AdminRoutes />}>
         <Route path="/admin" element={<AdminPage />} />
-        <Route path="/admin/client-contacts" element={<AdminContactsPage />} />
+        <Route path="/admin/:idParam/client-contacts" element={<AdminContactsPage />} />
       </Route>
       <Route element={<UserRoutes />}>
         <Route path="/client" element={<ClientPage />} />
