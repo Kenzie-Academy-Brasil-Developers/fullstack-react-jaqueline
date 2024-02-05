@@ -1,13 +1,13 @@
-import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerContactSchema } from "./registerContactFormSchema";
 import { Input } from "../../Inputs/input";
+import { toast } from "react-toastify";
+import { api } from "../../../api/axios";
+import { registerContactSchema } from "./registerContactFormSchema";
+import { useContext } from "react";
 import { ClientsContext } from "../../../providers/clientsContext";
 
-// const { allContacts, setAllContacts } = useContext(ClientsContext);
-
-export const RegisterContactForm = ({ submitRegisterContact }) => {
+export const RegisterContactForm = () => {
   const {
     register,
     handleSubmit,
@@ -16,9 +16,30 @@ export const RegisterContactForm = ({ submitRegisterContact }) => {
     resolver: zodResolver(registerContactSchema),
   });
 
+  const { setAllContacts, allContacts } = useContext(ClientsContext);
+
+
+  const clientID = Number(JSON.parse(localStorage.getItem("@clientId")));
+
+  const submitRegisterContact = async (formData) => {
+    try {
+      const { data } = await api.post("/contacts", formData);
+      toast.success("Contato criado com sucesso");
+      setAllContacts([...allContacts, data]);
+    } catch (error) {
+      toast.error("Ops! Algo deu errado");
+      console.log(error);
+    }
+  };
+
+  const submit = (formData) => {
+    formData.clientId = Number(formData.clientId);
+    submitRegisterContact(formData);
+  };
+
   return (
     <>
-      <form onSubmit={handleSubmit(submitRegisterContact)}>
+      <form onSubmit={handleSubmit(submit)}>
         <div>
           <Input
             type="text"
@@ -39,17 +60,16 @@ export const RegisterContactForm = ({ submitRegisterContact }) => {
             error={errors.telephone}
           />
 
-          <Input
-            type="text"
+          <input
+            type="hidden"
             {...register("clientId")}
+            defaultValue={parseInt(clientID)}
             error={errors.clientId}
           />
 
-          <div className="buttons">
-            <button type="submit" className="btn__black login">
-              CADASTRAR CONTATO
-            </button>
-          </div>
+          <button type="submit" className="btn__black login">
+            CADASTRAR CONTATO
+          </button>
         </div>
       </form>
     </>
