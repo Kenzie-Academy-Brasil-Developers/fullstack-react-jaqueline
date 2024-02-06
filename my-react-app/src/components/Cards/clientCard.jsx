@@ -7,10 +7,8 @@ import { EditModalClient } from "../Modals/editModalClient";
 
 export const ClientCard = ({
   client,
-  // confirmEditClient,
-  // confirmEditModalClient,
 }) => {
-  const { confirmRemoveContact, confirmDeleteModal, editClient, deleteClient } =
+  const { confirmRemoveContact, confirmDeleteModal, deleteClient } =
     useContext(ClientsContext);
   const [confirmEditModalClient, setConfirmEditModalClient] = useState(false);
 

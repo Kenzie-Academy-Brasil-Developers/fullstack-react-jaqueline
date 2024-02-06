@@ -13,40 +13,11 @@ export const ContactCard = ({
     const [confirmEditModalContact, setConfirmEditModalContact] = useState(false);
 
 
-  // const editContact = async (id, formData) => {
-  //   const token = localStorage.getItem("@token");
-
-  //   try {
-  //     const { data } = await api.patch(`/contacts/${id}`, formData, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-
-  //     const updatedContacts = allContacts.map((contact) =>
-  //       contact.id === id ? { ...contact, ...data } : contact
-  //     );
-
-  //     setAllContacts(updatedContacts);
-  //     toast.success("Contato editado com sucesso");
-  //     setConfirmEditModal(false);
-  //   } catch (error) {
-  //     console.log(error);
-  //     toast.error("Ops alguma coisa deu errado!");
-  //   }
-  // };
-
-  // const confirmEditContact = (contactId) => {
-  //   setConfirmEditModal({
-  //     ...confirmEditModal,
-  //     [contactId]: true,
-  //   });
-  // };
-
   const confirmEditContact = (contactId) => {
     setConfirmEditModalContact({ [contactId]: true });
   };
 
+  const clientId = localStorage.getItem("@clientId")
 
   return (
     <>
@@ -67,6 +38,7 @@ export const ContactCard = ({
           setConfirmEditModalContact={setConfirmEditModalContact}
           
             objectC={contact}
+            clientId={clientId}
        
           />
         ) : null}
@@ -80,6 +52,7 @@ export const ContactCard = ({
             deleteFunction={deleteContact}
             object={contact}
             contactOrClient={"contato"}
+            clientId={clientId}
           />
         ) : null}
       </li>

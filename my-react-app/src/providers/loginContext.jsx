@@ -17,6 +17,7 @@ export const LoginContextProvider = ({ children }) => {
     navigate("/");
     localStorage.removeItem("@token");
     localStorage.removeItem("@admin");
+    localStorage.removeItem("@clientId");
   };
 
   const submitLogin = async (formData) => {
@@ -25,6 +26,7 @@ export const LoginContextProvider = ({ children }) => {
       const { data } = await api.post("/login", formData);
       localStorage.setItem("@token", data.token);
       localStorage.setItem("@admin", data.admin);
+      localStorage.setItem("@id", data.id);
       setName(data.name);
       setEmail(data.email);
       setTelephone(data.telephone);

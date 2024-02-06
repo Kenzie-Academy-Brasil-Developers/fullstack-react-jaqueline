@@ -8,6 +8,7 @@ import { api } from "../../api/axios";
 import { ClientsContext } from "../../providers/clientsContext";
 import { toast } from "react-toastify";
 import Gear from "../../assets/Gear.svg";
+import { SearchForm } from "../../components/Forms/Search/searchForm";
 
 export const AdminPage = () => {
   const {
@@ -16,9 +17,11 @@ export const AdminPage = () => {
     submitRegisterClient,
     loadingClient,
     setLoadingClient,
-    //  setConfirmEditModalClient, confirmEditModalClient
+    setFilteredItems,
+    filteredItems,
+    searchItem,
   } = useContext(ClientsContext);
-  // const [confirmEditModalClient, setConfirmEditModalClient] = useState(false);
+  
 
   useEffect(() => {
     const getAllClients = async () => {
@@ -36,12 +39,16 @@ export const AdminPage = () => {
     getAllClients();
   }, []);
 
-  // const confirmEditClient = (client_Id) => {
-  //   setConfirmEditModalClient({
-  //     ...confirmEditModalClient,
-  //     [client_Id]: true,
-  //   });
-  // };
+  useEffect(() => {
+    const filteredClientsList = allClients.filter(
+      (client) =>
+       client.name.toLowerCase().includes(searchItem.toLowerCase())
+    );
+
+    setFilteredItems(filteredClientsList);
+  }, [allClients]);
+
+  const clientsList = searchItem ? filteredItems : allClients;
 
   return (
     <>
@@ -58,7 +65,7 @@ export const AdminPage = () => {
           </div>
           <div>
             <p>clientes</p>
-            <p>buscar cliente</p>
+            <SearchForm contactOrClient={"cliente"} />
           </div>
           {loadingClient ? (
             <>
@@ -67,8 +74,22 @@ export const AdminPage = () => {
             </>
           ) : (
             <>
+            {clientsList?.length === 0 ? (
+              <p
+                style={{
+                  position: "relative",
+                  justifyContent: "center",
+                  color: "white",
+                  margin: "30px",
+                  padding: "34px",
+                }}
+              >
+                Nenhum resultado encontrado.
+              </p>
+            ) : (
+            <>
               <ul className={`ul`}>
-                {allClients.map((client, index) => (
+                {clientsList.map((client, index) => (
                   <ClientCard
                     key={index}
                     client={client}
@@ -76,6 +97,8 @@ export const AdminPage = () => {
                 ))}
               </ul>
             </>
+          )}
+          </>
           )}
         </div>
       </div>

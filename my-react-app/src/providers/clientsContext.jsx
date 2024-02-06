@@ -9,7 +9,8 @@ export const ClientContextProvider = ({ children }) => {
   const [allContacts, setAllContacts] = useState([]);
   const [loadingClient, setLoadingClient] = useState(true);
   const [confirmDeleteModal, setConfirmDeleteModal] = useState(false);
- 
+  const [searchItem, setSearchItem] = useState("");
+  const [filteredItems, setFilteredItems] = useState([]);
 
   const confirmRemoveContact = (contactId) => {
     setConfirmDeleteModal({
@@ -18,11 +19,11 @@ export const ClientContextProvider = ({ children }) => {
     });
   };
 
-  const editContact = async (id, formData) => {
+  const editContact = async (id, clientId, formData) => {
     const token = localStorage.getItem("@token");
 
     try {
-      const { data } = await api.patch(`/contacts/${id}`, formData, {
+      const { data } = await api.patch(`/contacts/${id}/client/${clientId}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -96,11 +97,11 @@ export const ClientContextProvider = ({ children }) => {
     }
   };
 
-  const deleteContact = async (id) => {
+  const deleteContact = async (id, clientId) => {
     const token = localStorage.getItem("@token");
 
     try {
-      await api.delete(`/contacts/${id}`, {
+      await api.delete(`/contacts/${id}/client/${clientId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -130,14 +131,17 @@ export const ClientContextProvider = ({ children }) => {
         confirmRemoveContact,
         confirmDeleteModal,
         setConfirmDeleteModal,
-// confirmEditClient,
         deleteClient,
         submitRegisterClient,
         loadingClient,
         setLoadingClient,
         editContact,
         deleteContact,
-        editClient
+        editClient,
+        searchItem,
+        setSearchItem,
+        filteredItems,
+        setFilteredItems
       }}
     >
       {children}

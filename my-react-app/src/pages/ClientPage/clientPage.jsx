@@ -1,44 +1,114 @@
+import { useContext, useEffect, useState } from "react";
 import { Footer } from "../../components/Footer/footer";
 import { Header } from "../../components/Header/header";
+import { ClientsContext } from "../../providers/clientsContext";
 import styles from "./styles.module.scss";
+import { RegisterContactForm } from "../../components/Forms/RegisterContact/registerContactForm";
+import { ContactCard } from "../../components/Cards/contactsCard";
+import Gear from "../../assets/Gear.svg";
+import { api } from "../../api/axios";
+import { LoginContext } from "../../providers/loginContext";
+import { SearchForm } from "../../components/Forms/Search/searchForm";
 
 export const ClientPage = () => {
+  const {
+    allContacts,
+    setAllContacts,
+    searchContact,
+    setSearchItem,
+    filteredItems,
+    setFilteredItems,
+    searchItem,
+  } = useContext(ClientsContext);
+  const { name, email, telephone } = useContext(LoginContext);
+  const [loadingContacts, setLoadingContacts] = useState(true);
+  const [clientId, setClientId] = useState(null);
+  const [client, setClient] = useState([]);
+  const [nome, setNome] = useState("");
+
+  const id = JSON.parse(localStorage.getItem("@id"));
+  useEffect(() => {
+    const getAllContactsFromClient = async () => {
+      try {
+        setLoadingContacts(true);
+
+        const token = localStorage.getItem("@token");
+        const { data } = await api.get(`/clients/${id}/contacts`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setAllContacts(data.contacts);
+        setClientId(data.client.id);
+        setNome(data.client.name);
+        localStorage.setItem("@clientId", data.client.id);
+        setClient(data.client);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoadingContacts(false);
+      }
+    };
+    getAllContactsFromClient();
+  }, []);
+
+  useEffect(() => {
+    const filteredContactsList = allContacts.filter((contact) =>
+      contact.name.toLowerCase().includes(searchItem.toLowerCase())
+    );
+
+    setFilteredItems(filteredContactsList);
+  }, [allContacts]);
+
+  const contactsList = searchItem ? filteredItems : allContacts;
+
   return (
     <>
       <Header link="/client" />
-      <main className="container">
-        <div className={styles.containerUser}>
-          <div>
-            <p>criar contato</p>
-            <p>Nome do contato</p>
-            <p>Email do contato</p>
-            <p>Telefone do contato</p>
-            <button>criar contato</button>
+      <div className={`container ${styles.containerAdmin}`}>
+        <div>
+          <div className={`${styles.create}`}>
+            <p>CRIE UM CONTATO</p>
+            <RegisterContactForm />
           </div>
           <div>
-            <div>
-              <p>Nome do cliente</p>
-              <p>Email do cliente</p>
-              <p>Telefone do cliente</p>
-              <button>Editar cliente (modal)</button>
-            </div>
-            <div>
-              <p>contatos</p>
-              <p>buscar contatos</p>
-            </div>
-
-            <ul>
-              <li>
-                <p>Nome do contato</p>
-                <p>Email do contato</p>
-                <p>Telefone do contato</p>
-                <button>Editar contato (modal)</button>
-                <button>Deletar contato (modal)</button>
-              </li>
-            </ul>
+            <p>Olá, {nome}</p>
+            <SearchForm contactOrClient={"contato"} />
+          </div>
+          <div>
+            {loadingContacts ? (
+              <>
+                <p>Carregando informações...</p>
+                <img src={Gear} alt="Carregando..." />
+              </>
+            ) : (
+              <>
+                {contactsList?.length === 0 ? (
+                  <p
+                    style={{
+                      position: "relative",
+                      justifyContent: "center",
+                      color: "white",
+                      margin: "30px",
+                      padding: "34px",
+                    }}
+                  >
+                    Nenhum resultado encontrado.
+                  </p>
+                ) : (
+                  <>
+                    <ul className={`ul`}>
+                      {contactsList.map((contact, index) => (
+                        <ContactCard key={index} contact={contact} />
+                      ))}
+                    </ul>
+                  </>
+                )}
+              </>
+            )}
           </div>
         </div>
-      </main>
+      </div>
       <Footer />
     </>
   );

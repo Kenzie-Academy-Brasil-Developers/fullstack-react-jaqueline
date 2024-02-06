@@ -8,18 +8,20 @@ import { api } from "../../api/axios";
 import { ContactCard } from "../../components/Cards/contactsCard";
 import Gear from "../../assets/Gear.svg";
 import styles from "./styles.module.scss";
+import { SearchForm } from "../../components/Forms/Search/searchForm";
 
 
 export const AdminContactsPage = () => {
   const { idParam } = useParams();
-  const [clientId, setClientId] = useState("");
+  const [clientId, setClientId] = useState(null);
   const [client, setClient] = useState([]);
   const {
     allContacts,
     setAllContacts,
-    setConfirmDeleteModal,
-    setConfirmEditModal,
-    deleteContact, editContact, confirmEditModal
+    searchContact,
+    setSearchItem,
+    filteredItems,
+    setFilteredItems, searchItem
   } = useContext(ClientsContext);
   const [loadingContacts, setLoadingContacts] = useState(true);
 
@@ -49,7 +51,16 @@ export const AdminContactsPage = () => {
   }, []);
 
 
+  useEffect(() => {
+    const filteredContactsList = allContacts.filter(
+      (contact) =>
+       contact.name.toLowerCase().includes(searchItem.toLowerCase())
+    );
 
+    setFilteredItems(filteredContactsList);
+  }, [allContacts]);
+
+  const contactsList = searchItem ? filteredItems : allContacts;
   
 
   return (
@@ -60,12 +71,11 @@ export const AdminContactsPage = () => {
           <div className={`${styles.create}`}>
             <p>CRIE UM CONTATO</p>
             <RegisterContactForm
-             clientId={clientId}
             />
           </div>
           <div>
             <p>contatos do cliente {client.name}</p>
-            <p>buscar contatos</p>
+            <SearchForm contactOrClient={"contato"} />
           </div>
 
           <div>
@@ -76,8 +86,22 @@ export const AdminContactsPage = () => {
               </>
             ) : (
               <>
+              {contactsList?.length === 0 ? (
+                <p
+                  style={{
+                    position: "relative",
+                    justifyContent: "center",
+                    color: "white",
+                    margin: "30px",
+                    padding: "34px",
+                  }}
+                >
+                  Nenhum resultado encontrado.
+                </p>
+              ) : (
+              <>
                 <ul className={`ul`}>
-                  {allContacts.map((contact, index) => (
+                  {contactsList.map((contact, index) => (
                     <ContactCard
                       key={index}
                  
@@ -87,6 +111,8 @@ export const AdminContactsPage = () => {
                   ))}
                 </ul>
               </>
+            )}
+            </>
             )}
           </div>
         </div>

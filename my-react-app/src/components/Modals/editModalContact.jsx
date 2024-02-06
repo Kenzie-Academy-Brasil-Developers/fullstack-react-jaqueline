@@ -4,19 +4,18 @@ import { useForm, useFormState } from "react-hook-form";
 import { Input } from "../Inputs/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-export const EditModalContact = ({ objectC, setConfirmEditModalContact }) => {
-  // const { setConfirmEditModal } = useContext(ClientsContext);
+export const EditModalContact = ({ objectC, setConfirmEditModalContact, clientId }) => {
+
   const { editContact } = useContext(ClientsContext);
 
   const { register, handleSubmit } = useForm();
 
   const submit = (formData) => {
     formData.clientId = Number(formData.clientId);
-    console.log(formData);
-    editContact(objectC.id, formData);
+    editContact(objectC.id, clientId, formData);
   };
 
-  const clientId = localStorage.getItem("@clientId");
+  // const clientId = localStorage.getItem("@clientId");
 
   return (
     <div className="confirmation-modal">
@@ -28,22 +27,22 @@ export const EditModalContact = ({ objectC, setConfirmEditModalContact }) => {
             placeholder="NOME"
             {...register("name")}
             defaultValue={objectC.name}
-            // error={errors.name}
+
           />
           <Input
             type="text"
             placeholder="EMAIL"
-            // {...setValue("email", event.target.value)}
+  
             {...register("email")}
             defaultValue={objectC.email}
-            // error={errors.email}
+   
           />
           <Input
             type="text"
             placeholder="TELEPHONE"
             {...register("telephone")}
             defaultValue={objectC.telephone}
-            // error={errors.telephone}
+  
           />
 
           <Input type="hidden" value={clientId} {...register("clientId")} />
@@ -57,7 +56,7 @@ export const EditModalContact = ({ objectC, setConfirmEditModalContact }) => {
         <button
           className="cancel-button"
           onClick={() => {
-            setConfirmEditModal(false);
+            setConfirmEditModalContact(false);
           }}
         >
           Cancelar

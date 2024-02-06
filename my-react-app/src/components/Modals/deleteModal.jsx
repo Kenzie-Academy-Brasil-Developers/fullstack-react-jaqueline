@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ClientsContext } from "../../providers/clientsContext";
 
-export const DeleteModal = ({ object, deleteFunction, contactOrClient }) => {
+export const DeleteModal = ({ object, deleteFunction, contactOrClient, clientId }) => {
   const { setConfirmDeleteModal } = useContext(ClientsContext);
 
  
@@ -13,7 +13,7 @@ export const DeleteModal = ({ object, deleteFunction, contactOrClient }) => {
         <div className="confirmation-buttons">
           <button
             className="confirm-button"
-            onClick={() => (deleteFunction(object.id))}
+            onClick={() => (deleteFunction(object.id, clientId))}
           >
             Confirmar
           </button>
