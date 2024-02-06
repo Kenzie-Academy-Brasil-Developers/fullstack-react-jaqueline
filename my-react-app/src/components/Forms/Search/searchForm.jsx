@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { ClientsContext } from "../../../providers/clientsContext";
 import { MdSearch } from "react-icons/md";
 
-export const SearchForm = ({contactOrClient}) => {
+export const SearchForm = ({contactOrClient, searchItem, setSearchItem}) => {
   const {
     register,
     handleSubmit,
@@ -11,7 +11,6 @@ export const SearchForm = ({contactOrClient}) => {
     formState: { errors },
   } = useForm();
 
-  const { setSearchItem, searchItem } = useContext(ClientsContext);
 
   const submitSearch = (data) => {
     reset({ searchItem: "" });

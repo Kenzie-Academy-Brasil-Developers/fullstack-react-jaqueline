@@ -19,8 +19,10 @@ export const AdminPage = () => {
     setLoadingClient,
     setFilteredItems,
     filteredItems,
-    searchItem,
+    // searchItem,
   } = useContext(ClientsContext);
+
+  const [searchItem, setSearchItem] = useState("");
   
 
   useEffect(() => {
@@ -46,7 +48,7 @@ export const AdminPage = () => {
     );
 
     setFilteredItems(filteredClientsList);
-  }, [allClients]);
+  }, [allClients, searchItem]);
 
   const clientsList = searchItem ? filteredItems : allClients;
 
@@ -65,7 +67,7 @@ export const AdminPage = () => {
           </div>
           <div>
             <p>clientes</p>
-            <SearchForm contactOrClient={"cliente"} />
+            <SearchForm setSearchItem={setSearchItem} searchItem={searchItem} contactOrClient={"cliente"} />
           </div>
           {loadingClient ? (
             <>

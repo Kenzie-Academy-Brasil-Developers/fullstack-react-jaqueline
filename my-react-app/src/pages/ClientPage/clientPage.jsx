@@ -15,16 +15,17 @@ export const ClientPage = () => {
     allContacts,
     setAllContacts,
     searchContact,
-    setSearchItem,
+
     filteredItems,
     setFilteredItems,
-    searchItem,
+
   } = useContext(ClientsContext);
   const { name, email, telephone } = useContext(LoginContext);
   const [loadingContacts, setLoadingContacts] = useState(true);
   const [clientId, setClientId] = useState(null);
   const [client, setClient] = useState([]);
   const [nome, setNome] = useState("");
+  const [searchItem, setSearchItem] = useState("");
 
   const id = JSON.parse(localStorage.getItem("@id"));
   useEffect(() => {
@@ -58,7 +59,7 @@ export const ClientPage = () => {
     );
 
     setFilteredItems(filteredContactsList);
-  }, [allContacts]);
+  }, [allContacts, searchItem]);
 
   const contactsList = searchItem ? filteredItems : allContacts;
 
@@ -73,7 +74,8 @@ export const ClientPage = () => {
           </div>
           <div>
             <p>Olá, {nome}</p>
-            <SearchForm contactOrClient={"contato"} />
+            <SearchForm setSearchItem={setSearchItem} searchItem={searchItem} contactOrClient={"cliente"} />
+
           </div>
           <div>
             {loadingContacts ? (

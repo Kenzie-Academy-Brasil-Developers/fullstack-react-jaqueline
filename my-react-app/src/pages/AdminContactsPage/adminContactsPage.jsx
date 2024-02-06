@@ -18,12 +18,14 @@ export const AdminContactsPage = () => {
   const {
     allContacts,
     setAllContacts,
-    searchContact,
-    setSearchItem,
+   
+    // setSearchItem,
     filteredItems,
-    setFilteredItems, searchItem
+    setFilteredItems,
+    //  searchItem
   } = useContext(ClientsContext);
   const [loadingContacts, setLoadingContacts] = useState(true);
+  const [searchItem, setSearchItem] = useState("");
 
   
 
@@ -58,7 +60,7 @@ export const AdminContactsPage = () => {
     );
 
     setFilteredItems(filteredContactsList);
-  }, [allContacts]);
+  }, [allContacts, searchItem]);
 
   const contactsList = searchItem ? filteredItems : allContacts;
   
@@ -75,7 +77,8 @@ export const AdminContactsPage = () => {
           </div>
           <div>
             <p>contatos do cliente {client.name}</p>
-            <SearchForm contactOrClient={"contato"} />
+            <SearchForm setSearchItem={setSearchItem} searchItem={searchItem} contactOrClient={"contato"} />
+
           </div>
 
           <div>

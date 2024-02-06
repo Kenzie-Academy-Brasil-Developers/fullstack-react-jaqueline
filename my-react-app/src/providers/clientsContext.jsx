@@ -9,7 +9,7 @@ export const ClientContextProvider = ({ children }) => {
   const [allContacts, setAllContacts] = useState([]);
   const [loadingClient, setLoadingClient] = useState(true);
   const [confirmDeleteModal, setConfirmDeleteModal] = useState(false);
-  const [searchItem, setSearchItem] = useState("");
+
   const [filteredItems, setFilteredItems] = useState([]);
 
   const confirmRemoveContact = (contactId) => {
@@ -138,8 +138,7 @@ export const ClientContextProvider = ({ children }) => {
         editContact,
         deleteContact,
         editClient,
-        searchItem,
-        setSearchItem,
+
         filteredItems,
         setFilteredItems
       }}
