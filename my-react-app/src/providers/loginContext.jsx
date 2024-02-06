@@ -18,6 +18,7 @@ export const LoginContextProvider = ({ children }) => {
     localStorage.removeItem("@token");
     localStorage.removeItem("@admin");
     localStorage.removeItem("@clientId");
+    localStorage.removeItem("@id");
   };
 
   const submitLogin = async (formData) => {

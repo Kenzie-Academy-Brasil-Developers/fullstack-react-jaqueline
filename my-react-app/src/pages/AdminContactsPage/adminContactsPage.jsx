@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Footer } from "../../components/Footer/footer";
 import { Header } from "../../components/Header/header";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -18,16 +18,13 @@ export const AdminContactsPage = () => {
   const {
     allContacts,
     setAllContacts,
-   
-    // setSearchItem,
     filteredItems,
     setFilteredItems,
-    //  searchItem
   } = useContext(ClientsContext);
   const [loadingContacts, setLoadingContacts] = useState(true);
   const [searchItem, setSearchItem] = useState("");
 
-  
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getAllContactsFromClient = async () => {
@@ -44,6 +41,13 @@ export const AdminContactsPage = () => {
        localStorage.setItem("@clientId", data.client.id)
         setClient(data.client);
       } catch (error) {
+        if (error.response && error.response.status === 404) {
+         
+          
+          navigate('*')} else if (error.response && error.response.status === 403){
+            navigate('/')
+          }
+
         console.log(error);
       } finally {
         setLoadingContacts(false);
