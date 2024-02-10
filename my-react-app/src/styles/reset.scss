@@ -7,12 +7,18 @@
 ul,
 ol {
   list-style: none;
+  padding: 0;
+}
+
+p{
+  margin-bottom: 0;
 }
 
 button {
   cursor: pointer;
   background: transparent;
   border: none;
+  margin-top: 0.2rem;
 }
 
 a {

@@ -7,14 +7,31 @@ import { Input } from "../../Inputs/input";
 import { Link } from "react-router-dom";
 
 export const RegisterClientForm = forwardRef(
-  ({ registerFunction, classNameLoginButton, registerButton }, ref) => {
+  ({ classNameLoginButton, registerButton, registerFunction }, ref) => {
     const {
       register,
+      reset,
       handleSubmit,
       formState: { errors },
     } = useForm({
       resolver: zodResolver(registerSchema),
     });
+
+    // const submitRegisterClient = async (formData) => {
+    //   try {
+    //     setLoadingClient(true);
+    //     const { data } = await api.post("/clients", formData);
+    //     toast.success("Cliente criado com sucesso");
+    //     setAllClients([...allClients, data]);
+    //   } catch (error) {
+    //     toast.error("Ops! Algo deu errado");
+    //     console.log(error);
+    //   } finally {
+    //     setLoadingClient(false);
+    //   }
+
+    //   reset()
+    // };
 
     return (
       <>

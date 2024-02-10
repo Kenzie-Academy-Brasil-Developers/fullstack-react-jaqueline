@@ -8,6 +8,8 @@
   font-family: var(--font-secondary);
   font-size: clamp(0.5rem, 4vw, 0.75rem);
   font-weight: 500;
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .btn__black {
@@ -35,6 +37,22 @@
   height: 40px;
   padding: 0 1.4rem;
   color: var(--black);
+  border-radius: 4px;
+  text-decoration: none;
+  
+
+  &:hover {
+    filter: brightness(1.4);
+  }
+}
+
+.btn__red {
+  @extend %buttonDefaults;
+  background-color: var(--red);
+  border: 1px solid var(--red);
+  height: 40px;
+  padding: 0 1.4rem;
+  color: white;
   border-radius: 4px;
 
   &:hover {

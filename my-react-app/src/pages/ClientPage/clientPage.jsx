@@ -18,7 +18,6 @@ export const ClientPage = () => {
 
     filteredItems,
     setFilteredItems,
-
   } = useContext(ClientsContext);
   const { name, email, telephone } = useContext(LoginContext);
   const [loadingContacts, setLoadingContacts] = useState(true);
@@ -66,16 +65,28 @@ export const ClientPage = () => {
   return (
     <>
       <Header link="/client" />
-      <div className={`container ${styles.containerAdmin}`}>
-        <div>
+      <div className={`container ${styles.containerUser}`}>
+       <div className={`${styles.containerForm}`}>
+   
+          <p>
+            Olá, <strong>{nome}</strong>
+          </p>
           <div className={`${styles.create}`}>
             <p>CRIE UM CONTATO</p>
             <RegisterContactForm />
           </div>
-          <div>
-            <p>Olá, {nome}</p>
-            <SearchForm setSearchItem={setSearchItem} searchItem={searchItem} contactOrClient={"cliente"} />
+               
+       </div>
+       <div className={`${styles.containerList}`}>
 
+
+          <div style={{ marginTop: "2rem" }}>
+            <h2>Sua lista de contatos</h2>
+            <SearchForm
+              setSearchItem={setSearchItem}
+              searchItem={searchItem}
+              contactOrClient={"contato"}
+            />
           </div>
           <div>
             {loadingContacts ? (
@@ -90,9 +101,8 @@ export const ClientPage = () => {
                     style={{
                       position: "relative",
                       justifyContent: "center",
-                      color: "white",
-                      margin: "30px",
-                      padding: "34px",
+                      color: "black",
+                      margin: "2rem",
                     }}
                   >
                     Nenhum resultado encontrado.
@@ -109,7 +119,7 @@ export const ClientPage = () => {
               </>
             )}
           </div>
-        </div>
+          </div>
       </div>
       <Footer />
     </>

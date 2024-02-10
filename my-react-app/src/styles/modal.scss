@@ -1,0 +1,17 @@
+.dialog {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  background: #0000008f;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  .modalBox {
+    flex-direction: column;
+    margin: auto auto;
+    padding: 20px;
+    position: relative;
+    background-color: #ffffff;
+  }
+}

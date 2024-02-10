@@ -9,18 +9,14 @@ import { ContactCard } from "../../components/Cards/contactsCard";
 import Gear from "../../assets/Gear.svg";
 import styles from "./styles.module.scss";
 import { SearchForm } from "../../components/Forms/Search/searchForm";
-
+import style from "../ClientPage/styles.module.scss";
 
 export const AdminContactsPage = () => {
   const { idParam } = useParams();
   const [clientId, setClientId] = useState(null);
   const [client, setClient] = useState([]);
-  const {
-    allContacts,
-    setAllContacts,
-    filteredItems,
-    setFilteredItems,
-  } = useContext(ClientsContext);
+  const { allContacts, setAllContacts, filteredItems, setFilteredItems } =
+    useContext(ClientsContext);
   const [loadingContacts, setLoadingContacts] = useState(true);
   const [searchItem, setSearchItem] = useState("");
 
@@ -38,15 +34,10 @@ export const AdminContactsPage = () => {
         });
         setAllContacts(data.contacts);
         setClientId(data.client.id);
-       localStorage.setItem("@clientId", data.client.id)
+        localStorage.setItem("@clientId", data.client.id);
         setClient(data.client);
       } catch (error) {
-        if (error.response && error.response.status === 404) {
-         
-          
-          navigate('*')} else if (error.response && error.response.status === 403){
-            navigate('/')
-          }
+        navigate("/");
 
         console.log(error);
       } finally {
@@ -56,70 +47,63 @@ export const AdminContactsPage = () => {
     getAllContactsFromClient();
   }, []);
 
-
   useEffect(() => {
-    const filteredContactsList = allContacts.filter(
-      (contact) =>
-       contact.name.toLowerCase().includes(searchItem.toLowerCase())
+    const filteredContactsList = allContacts.filter((contact) =>
+      contact.name.toLowerCase().includes(searchItem.toLowerCase())
     );
 
     setFilteredItems(filteredContactsList);
   }, [allContacts, searchItem]);
 
   const contactsList = searchItem ? filteredItems : allContacts;
-  
 
   return (
     <>
       <Header link="/admin" />
-      <div className={`container ${styles.containerAdmin}` }>
-        <div >
+      <div className={`container ${style.containerUser}`}>
+        <div className={`${style.containerForm}`}>
           <div className={`${styles.create}`}>
             <p>CRIE UM CONTATO</p>
-            <RegisterContactForm
-            />
+            <RegisterContactForm />
           </div>
-          <div>
-            <p>contatos do cliente {client.name}</p>
-            <SearchForm setSearchItem={setSearchItem} searchItem={searchItem} contactOrClient={"contato"} />
-
-          </div>
+        </div>
+        <div className={`${style.containerList}`}>
+          <p>Contatos do cliente <strong>{client.name}</strong></p>
+          <SearchForm
+            setSearchItem={setSearchItem}
+            searchItem={searchItem}
+            contactOrClient={"contato"}
+          />
 
           <div>
             {loadingContacts ? (
-              <>
+              <div>
                 <p>Carregando informações...</p>
                 <img src={Gear} alt="Carregando..." />
-              </>
+              </div>
             ) : (
               <>
-              {contactsList?.length === 0 ? (
-                <p
-                  style={{
-                    position: "relative",
-                    justifyContent: "center",
-                    color: "white",
-                    margin: "30px",
-                    padding: "34px",
-                  }}
-                >
-                  Nenhum resultado encontrado.
-                </p>
-              ) : (
-              <>
-                <ul className={`ul`}>
-                  {contactsList.map((contact, index) => (
-                    <ContactCard
-                      key={index}
-                 
-                      contact={contact}
-                
-                    />
-                  ))}
-                </ul>
+                {contactsList?.length === 0 ? (
+                  <p
+                    style={{
+                      position: "relative",
+                      justifyContent: "center",
+                      color: "black",
+                      margin: "2rem",
+                    }}
+                  >
+                    Nenhum resultado encontrado.
+                  </p>
+                ) : (
+                  <>
+                    <ul className={`ul`}>
+                      {contactsList.map((contact, index) => (
+                        <ContactCard key={index} contact={contact} />
+                      ))}
+                    </ul>
+                  </>
+                )}
               </>
-            )}
-            </>
             )}
           </div>
         </div>

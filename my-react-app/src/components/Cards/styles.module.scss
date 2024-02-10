@@ -1,7 +1,12 @@
 @media (min-width: 700px) {
-  .itensCard{
+  .itensCard {
     display: flex;
+    flex-direction: column;
+    min-width: 50%;
   }
-  
+
+  .itensP{
+    display: flex;
+    justify-content: space-between;
   }
-  
+}

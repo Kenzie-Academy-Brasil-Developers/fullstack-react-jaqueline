@@ -1,3 +1,31 @@
-.containerUser{
-    display: flex;
+.containerUser {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
+  position: relative;
+  min-height: 100vh;
+  flex: 1;
+  margin-bottom: 60px;
+  width: 100%;
+}
+
+.containerForm {
+  width: 100%;
+}
+
+@media (min-width: 700px) {
+  .containerUser {
+    flex-direction: row;
+  }
+
+  .containerForm {
+    width: 40%;
+    margin-right: 5rem;
+  }
+
+  .containerList {
+    width: 60%;
+  }
 }

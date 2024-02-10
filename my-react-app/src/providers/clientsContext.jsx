@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import { toast } from "react-toastify";
 import { api } from "../api/axios";
+import { useForm } from "react-hook-form";
 
 export const ClientsContext = createContext({});
 
@@ -9,8 +10,9 @@ export const ClientContextProvider = ({ children }) => {
   const [allContacts, setAllContacts] = useState([]);
   const [loadingClient, setLoadingClient] = useState(true);
   const [confirmDeleteModal, setConfirmDeleteModal] = useState(false);
-
   const [filteredItems, setFilteredItems] = useState([]);
+
+  const { reset } = useForm();
 
   const confirmRemoveContact = (contactId) => {
     setConfirmDeleteModal({
@@ -23,24 +25,28 @@ export const ClientContextProvider = ({ children }) => {
     const token = localStorage.getItem("@token");
 
     try {
-      const { data } = await api.patch(`/contacts/${id}/client/${clientId}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await api.patch(
+        `/contacts/${id}/client/${clientId}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const updatedContacts = allContacts.map((contact) =>
         contact.id === id ? { ...contact, ...data } : contact
       );
 
-      setAllContacts( updatedContacts);
+      setAllContacts(updatedContacts);
       toast.success("Contato editado com sucesso");
       // setConfirmEditModal(false);
     } catch (error) {
       console.log(error);
       toast.error("Ops alguma coisa deu errado!");
     }
-  }
+  };
 
   const editClient = async (id, formData) => {
     const token = localStorage.getItem("@token");
@@ -63,7 +69,7 @@ export const ClientContextProvider = ({ children }) => {
       console.log(error);
       toast.error("Ops alguma coisa deu errado!");
     }
-  }
+  };
   const deleteClient = async (id) => {
     const token = localStorage.getItem("@token");
 
@@ -94,7 +100,9 @@ export const ClientContextProvider = ({ children }) => {
       console.log(error);
     } finally {
       setLoadingClient(false);
+      reset();
     }
+
   };
 
   const deleteContact = async (id, clientId) => {
@@ -118,9 +126,6 @@ export const ClientContextProvider = ({ children }) => {
     }
   };
 
-
-
-
   return (
     <ClientsContext.Provider
       value={{
@@ -140,7 +145,7 @@ export const ClientContextProvider = ({ children }) => {
         editClient,
 
         filteredItems,
-        setFilteredItems
+        setFilteredItems,
       }}
     >
       {children}

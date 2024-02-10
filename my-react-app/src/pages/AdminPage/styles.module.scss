@@ -4,8 +4,11 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 3rem;
+  position: relative; 
+  min-height: 100vh;
+  flex: 1;
+  margin-bottom: 60px;
 }
-
 
 @media (min-width: 700px) {
   .containerAdmin {
@@ -21,10 +24,6 @@
   }
 
   .create {
-    width: 30%;
+    width: 100%;
   }
-
-
-
-
 }

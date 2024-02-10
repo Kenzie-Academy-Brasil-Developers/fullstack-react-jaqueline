@@ -10,6 +10,7 @@ import { ClientsContext } from "../../../providers/clientsContext";
 export const RegisterContactForm = () => {
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -30,6 +31,7 @@ export const RegisterContactForm = () => {
       toast.error("Ops! Algo deu errado");
       console.log(error);
     }
+    reset();
   };
 
   const submit = (formData) => {
