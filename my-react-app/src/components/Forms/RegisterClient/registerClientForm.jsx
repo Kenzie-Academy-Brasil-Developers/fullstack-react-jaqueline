@@ -1,5 +1,4 @@
-import { forwardRef, useContext } from "react";
-import { LoginContext } from "../../../providers/loginContext";
+import { forwardRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "./registerFormSchema";
@@ -16,22 +15,6 @@ export const RegisterClientForm = forwardRef(
     } = useForm({
       resolver: zodResolver(registerSchema),
     });
-
-    // const submitRegisterClient = async (formData) => {
-    //   try {
-    //     setLoadingClient(true);
-    //     const { data } = await api.post("/clients", formData);
-    //     toast.success("Cliente criado com sucesso");
-    //     setAllClients([...allClients, data]);
-    //   } catch (error) {
-    //     toast.error("Ops! Algo deu errado");
-    //     console.log(error);
-    //   } finally {
-    //     setLoadingClient(false);
-    //   }
-
-    //   reset()
-    // };
 
     return (
       <>
