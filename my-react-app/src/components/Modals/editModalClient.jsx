@@ -16,6 +16,7 @@ export const EditModalClient = ({ objectC, setConfirmEditModalClient }) => {
 
   const submit = (formData) => {
     const { email } = formData;
+    formData.email = formData.email.toLowerCase();
 
     if (dirtyFields.email && dirtyFields.email !== objectC.email) {
       console.log("O e-mail foi modificado");

@@ -54,7 +54,7 @@ export const AdminPage = () => {
       <Header link="/admin" />
       <div className={`container ${style.containerUser}`}>
       <div className={`${style.containerForm}`}>
-          <h2>DASHBOARD</h2>
+          <h2>PÁGINA DE CLIENTES</h2>
         <div className={`${styles.create}`}>
           <p>CRIE UM CLIENTE</p>
           <RegisterClientForm

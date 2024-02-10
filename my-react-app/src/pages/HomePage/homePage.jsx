@@ -19,10 +19,16 @@ export const HomePage = () => {
 
   const { submitLogin } = useContext(LoginContext);
 
+  const submit = (formData) => {
+
+    formData.email = formData.email.toLowerCase();
+    submitLogin(formData);
+  };
+
   return (
     <div className="container containerLoginRegister">
       <img src={login} className="logo" alt="logo login" />
-      <form onSubmit={handleSubmit(submitLogin)} className={styles.form}>
+      <form onSubmit={handleSubmit(submit)} className={styles.form}>
         <div className={styles.login}>
           <div className={styles.form}>
           <h3 className="title one">Olá!</h3>

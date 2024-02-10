@@ -68,9 +68,9 @@ export const ClientPage = () => {
       <div className={`container ${styles.containerUser}`}>
        <div className={`${styles.containerForm}`}>
    
-          <p>
+          <h2>
             Olá, <strong>{nome}</strong>
-          </p>
+          </h2>
           <div className={`${styles.create}`}>
             <p>CRIE UM CONTATO</p>
             <RegisterContactForm />

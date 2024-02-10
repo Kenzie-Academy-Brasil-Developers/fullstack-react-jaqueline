@@ -16,6 +16,7 @@ export const EditModalContact = ({
 
   const submit = (formData) => {
     formData.clientId = Number(formData.clientId);
+    formData.email = formData.email.toLowerCase();
     editContact(objectC.id, clientId, formData);
     setConfirmEditModalContact(false);
   };

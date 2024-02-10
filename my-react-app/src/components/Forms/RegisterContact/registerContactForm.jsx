@@ -36,6 +36,7 @@ export const RegisterContactForm = () => {
 
   const submit = (formData) => {
     formData.clientId = Number(formData.clientId);
+    formData.email = formData.email.toLowerCase();
     submitRegisterContact(formData);
   };
 

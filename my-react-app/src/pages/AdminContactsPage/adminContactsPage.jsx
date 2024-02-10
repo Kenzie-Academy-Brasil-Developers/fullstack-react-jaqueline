@@ -63,12 +63,14 @@ export const AdminContactsPage = () => {
       <div className={`container ${style.containerUser}`}>
         <div className={`${style.containerForm}`}>
           <div className={`${styles.create}`}>
+          <h3>Contatos do cliente <strong>{client.name}</strong></h3>
             <p>CRIE UM CONTATO</p>
             <RegisterContactForm />
           </div>
         </div>
         <div className={`${style.containerList}`}>
-          <p>Contatos do cliente <strong>{client.name}</strong></p>
+        <h2>LISTA DE CONTATOS </h2>
+
           <SearchForm
             setSearchItem={setSearchItem}
             searchItem={searchItem}

@@ -16,9 +16,15 @@ export const RegisterClientForm = forwardRef(
       resolver: zodResolver(registerSchema),
     });
 
+    const submit = (formData) => {
+
+      formData.email = formData.email.toLowerCase();
+      registerFunction(formData);
+    };
+
     return (
       <>
-        <form onSubmit={handleSubmit(registerFunction)}>
+        <form onSubmit={handleSubmit(submit)}>
           <div>
             <Input
               type="text"
